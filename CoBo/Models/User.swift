@@ -9,10 +9,21 @@ import Foundation
 import SwiftData
 
 @Model
-class User{
-    
+class User: DropdownProtocol {
     var name: String
     var email: String
+    
+    var dropdownLabel: String {
+        get {
+            return self.name
+        }
+    }
+    
+    var value: Any {
+        get {
+            return self
+        }
+    }
     
     init(name: String, email: String) {
         self.name = name

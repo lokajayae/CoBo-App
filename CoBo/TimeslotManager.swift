@@ -19,7 +19,7 @@ struct TimeslotManager : View{
         LazyVGrid(columns: columns, spacing: 12) {
             ForEach(availableTimeslots.prefix(6), id: \.self) { timeslot in
                 let isBooked = getTimeslotStatus(timeslot: timeslot)
-                TimeslotComponent(timeslot: .constant(timeslot), isBooked: .constant(isBooked))
+                TimeslotComponent(timeslot: .constant(timeslot), isBooked: .constant(isBooked), selectedDate: selectedDate!, collabSpace: collabSpace!)
             }
         }
     }
