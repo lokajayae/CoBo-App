@@ -103,7 +103,7 @@ struct BookingSuccessView: View {
                     .presentationCornerRadius(25) // Customize corner radius
             }
             
-            
+
             Text("Check-In Time")
                 .padding(.bottom,10)
                 .padding(.top,10)
@@ -167,8 +167,6 @@ struct BookingSuccessView: View {
         .safeAreaPadding()
     }
 }
-
-
 
 #Preview {
     BookingSuccessView()

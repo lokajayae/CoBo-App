@@ -1,29 +1,48 @@
 import SwiftUI
+import CoreImage.CIFilterBuiltins
 
 struct ModalView: View {
-    @Environment(\.dismiss) var dismiss // buat close modal
+    @Environment(\.dismiss) var dismiss
+    
+    var qrCodeText: String {
+        generatePlaceholderQRCode()
+    }
+    
     var body: some View {
-        VStack(alignment:.center) {
-            HStack{
+        VStack {
+            HStack {
                 Button("Close") {
-                    // Close the modal
-                    dismiss()  // Use SwiftUI's environment dismiss function
+                    dismiss()
                 }
-                Text("Add this booking to iCal")
-                    .padding(.leading, 40)
-                    .font(.headline)
+                .padding()
 
+                Text("Add this booking to iCal")
+                    .font(.headline)
                 Spacer()
-            }.padding()
+            }
+
             Text("""
 Scan this QR code to effortlessly add the 
 event to your iCal and receive timely reminders.
 """)
-                .multilineTextAlignment(.center) // Centers text alignment
-                .font(.system(size: 13))
-            Spacer()
+            .multilineTextAlignment(.center)
+            .font(.system(size: 13))
+            .padding()
 
+            if let qrImage = generateQRCode(from: qrCodeText) {
+                Image(uiImage: qrImage)
+                    .resizable()
+                    .interpolation(.none)
+                    .scaledToFit()
+                    .background(Color.gray.opacity(0.2))
+            } else {
+                Text("Failed to generate QR code")
+                    .foregroundColor(.red)
+            }
+            
+            Spacer()
         }
+        .padding()
     }
 }
 
