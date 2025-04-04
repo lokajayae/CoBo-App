@@ -14,8 +14,7 @@ struct ModalView: View {
                 Button("Close") {
                     dismiss()
                 }
-                .padding()
-
+                .padding(.trailing,35)
                 Text("Add this booking to iCal")
                     .font(.headline)
                 Spacer()
@@ -28,7 +27,6 @@ event to your iCal and receive timely reminders.
             .multilineTextAlignment(.center)
             .font(.system(size: 13))
             .padding()
-
             if let qrImage = generateQRCode(from: qrCodeText) {
                 Image(uiImage: qrImage)
                     .resizable()
