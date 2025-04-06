@@ -6,6 +6,7 @@
 //
 import SwiftUI
 struct CollabspaceCard : View{
+    @Binding var navigationPath: NavigationPath
     @Binding var collabSpace: CollabSpace
     @Binding var selectedDate: Date
     
@@ -71,7 +72,7 @@ struct CollabspaceCard : View{
                     .offset(y: -18)
             VStack(alignment: .leading, spacing: 12){
                 Text("Available timeslot").font(.system(size: 13)).fontWeight(.medium)
-                TimeslotManager(collabSpace: .constant(collabSpace), selectedDate: .constant(selectedDate))
+                TimeslotManager(navigationPath: $navigationPath, collabSpace: .constant(collabSpace), selectedDate: .constant(selectedDate))
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
@@ -90,7 +91,8 @@ struct CollabspaceCard : View{
 }
 
 #Preview {
-    CollabspaceCard(collabSpace: .constant(CollabSpace(
+    let navigationPath = NavigationPath()
+    CollabspaceCard(navigationPath: .constant(navigationPath), collabSpace: .constant(CollabSpace(
         name: "Collab Space 04",
         capacity: 8, whiteboardAmount: 2, tableWhiteboardAmount: 2, tvAvailable: true, image: "collab-04-img")), selectedDate: .constant(Date()))
 }

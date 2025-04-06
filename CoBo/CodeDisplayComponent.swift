@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct CodeDisplayView: View {
-    @State private var generatedCode: String = ""
+struct CodeDisplayComponent: View {
+    @State var code: String
 
     var body: some View {
         VStack(spacing: 20) {
             HStack(spacing: 10) {
-                ForEach(Array(generatedCode), id: \.self) { digit in
+                ForEach(Array(code), id: \.self) { digit in
                     Text(String(digit))
                         .frame(width: 45, height: 60)
                         .background(Color.gray.opacity(0.2))
@@ -14,9 +14,6 @@ struct CodeDisplayView: View {
                         .font(.title)
                         .multilineTextAlignment(.center)
                 }
-            }
-            .onAppear {
-                generatedCode = generateCode()
             }
         }
         .padding()
@@ -30,5 +27,6 @@ struct CodeDisplayView: View {
 }
 
 #Preview {
-    CodeDisplayView()
+    var code = "XXXXXX"
+    CodeDisplayComponent(code: code)
 }

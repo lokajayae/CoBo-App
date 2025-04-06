@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TimeslotComponent: View {
+    @Binding var navigationPath: NavigationPath
     @Binding var timeslot: Timeslot
     @Binding var isBooked: Bool
     
@@ -15,12 +16,7 @@ struct TimeslotComponent: View {
     var collabSpace: CollabSpace
     
     var body: some View {
-        NavigationLink(destination: BookingFormView(
-            bookingDate: selectedDate,
-            timeslot: timeslot,
-            collabSpace: collabSpace
-        )) {
-            // Keep your existing conditional styling here
+        NavigationLink(value: BookingFormContext(date: selectedDate, timeslot: timeslot, collabSpace: collabSpace)) {
             if (isBooked) {
                 Text("\(timeslot.name)")
                     .font(.system(size: 11, weight: .medium))
@@ -53,9 +49,10 @@ struct TimeslotComponent: View {
 
 
 #Preview {
+    let navigationPath = NavigationPath()
     let timeslot = DataManager.getTimeslotsData()[0]
     let collabSpace = DataManager.getCollabSpacesData()[0]
     let date = Date.now
     
-    TimeslotComponent(timeslot: .constant(timeslot), isBooked: .constant(true), selectedDate: date, collabSpace: collabSpace)
+    TimeslotComponent(navigationPath: .constant(navigationPath), timeslot: .constant(timeslot), isBooked: .constant(true), selectedDate: date, collabSpace: collabSpace)
 }

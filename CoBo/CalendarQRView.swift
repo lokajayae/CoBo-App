@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 
-struct ModalView: View {
+struct CalendarQRView: View {
     @Environment(\.dismiss) var dismiss
     
     var qrCodeText: String {
@@ -47,5 +47,5 @@ event to your iCal and receive timely reminders.
 }
 
 #Preview {
-    ModalView()
+    CalendarQRView()
 }

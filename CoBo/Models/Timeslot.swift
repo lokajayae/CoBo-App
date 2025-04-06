@@ -16,6 +16,18 @@ class Timeslot {
         }
     }
     
+    var startCheckIn: String {
+        get {
+            return doubleToTime(self.startHour - 0.25)
+        }
+    }
+    
+    var endCheckIn: String {
+        get {
+            return doubleToTime(self.startHour + 0.25)
+        }
+    }
+    
     var startHour: Double
     var endHour: Double
     

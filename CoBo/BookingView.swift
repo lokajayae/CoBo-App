@@ -7,8 +7,10 @@
 import SwiftUI
 struct BookingView : View{
     @State private var selectedDate: Date = Date()
+    @State private var navigationPath = NavigationPath()
+    
     var body:some View{
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             VStack(spacing: 0){
                 ZStack(alignment: .top) {
                     LinearGradient(
@@ -39,7 +41,7 @@ struct BookingView : View{
                             Image("no-2").resizable(capInsets: EdgeInsets()).frame(width: 16, height: 16)
                             Text("Select available timeslots").font(.system(size: 14)).fontWeight(.medium)
                         }
-                        CollabspaceCardManager(selectedDate: $selectedDate)
+                        CollabspaceCardManager(navigationPath: $navigationPath, selectedDate: $selectedDate)
                         
                     }
                 }
@@ -48,8 +50,11 @@ struct BookingView : View{
                 .padding(.top, -54)
                 
             }
+            .navigationDestination(for: BookingFormContext.self) { context in
+                BookingFormView(navigationPath: $navigationPath, bookingDate: context.date, timeslot: context.timeslot, collabSpace: context.collabSpace)
+            }
     }
-       
+        
     }
 }
 

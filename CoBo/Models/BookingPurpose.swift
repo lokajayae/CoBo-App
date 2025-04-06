@@ -9,9 +9,11 @@ import Foundation
 
 
 // TODO: Add more booking purpose
-enum BookingPurpose: Codable {
-    case groupDiscussion
-    case personalMentoring
-    case meeting
-    case others
+enum BookingPurpose: String, Codable {
+    case groupDiscussion = "Group Discussion"
+    case personalMentoring = "Personal Mentoring"
+    case meeting = "Meeting"
+    case others = "Others"
+    
+    static let allValues = [groupDiscussion, personalMentoring, meeting, others]
 }

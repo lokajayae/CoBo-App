@@ -10,23 +10,23 @@ import SwiftData
 import SwiftUI
 
 @Model
-class Booking {
-    var name: String
-    var coordinator: User
-    var purpose: BookingPurpose
+class Booking: Hashable {
+    var name: String?
+    var coordinator: User?
+    var purpose: BookingPurpose?
     var date: Date
     var participants: [User]
     var createdAt: Date
     var timeslot: Timeslot
     var collabSpace: CollabSpace
     var status: BookingStatus
-    var checkInCode: String
+    var checkInCode: String?
     
     func getCalendarQRCode() -> Image? {
         return nil
     }
     
-    init(name: String, coordinator: User, purpose: BookingPurpose, date: Date, participants: [User], timeslot: Timeslot, collabSpace: CollabSpace, status: BookingStatus, checkInCode: String) {
+    init(name: String = "", coordinator: User? = nil, purpose: BookingPurpose? = nil, date: Date, participants: [User] = [], timeslot: Timeslot, collabSpace: CollabSpace, status: BookingStatus = .notCheckedIn, checkInCode: String = "") {
         self.name = name
         self.coordinator = coordinator
         self.purpose = purpose

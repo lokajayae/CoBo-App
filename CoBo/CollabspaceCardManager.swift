@@ -6,14 +6,16 @@
 //
 import SwiftUI
 struct CollabspaceCardManager : View{
+    @Binding var navigationPath: NavigationPath
     @Binding var selectedDate: Date
     @State var collabSpaces: [CollabSpace] = DataManager.getCollabSpacesData()
+    
     var body: some View{
         ScrollView(.vertical){
             LazyVStack(spacing: 32){
                 ForEach(collabSpaces, id: \.self){
                     collabspace in
-                    CollabspaceCard(collabSpace:
+                    CollabspaceCard(navigationPath: $navigationPath, collabSpace:
                             .constant(CollabSpace(name: collabspace.name,
                                                    capacity: collabspace.capacity,
                                                    whiteboardAmount: collabspace.whiteboardAmount,
@@ -30,5 +32,6 @@ struct CollabspaceCardManager : View{
 }
 
 #Preview {
-    CollabspaceCardManager(selectedDate: .constant(Date()))
+    let navigationPath = NavigationPath()
+    CollabspaceCardManager(navigationPath: .constant(navigationPath), selectedDate: .constant(Date()))
 }

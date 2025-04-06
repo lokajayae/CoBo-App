@@ -49,7 +49,7 @@ final class DataManager {
                 timeslot: DataManager.getTimeslotsData()[5],
                 collabSpace: DataManager.getCollabSpacesData()[0],
                 status: BookingStatus.notCheckedIn,
-                checkInCode:"Check-In Code"
+                checkInCode:"908724"
             ),
             Booking(
                 name: "Lokajaya's Meeting",
@@ -60,7 +60,7 @@ final class DataManager {
                 timeslot: DataManager.getTimeslotsData()[4],
                 collabSpace: DataManager.getCollabSpacesData()[1],
                 status: BookingStatus.notCheckedIn,
-                checkInCode:"Check-In Code"
+                checkInCode:"908462"
             )
         ]
     }
