@@ -48,7 +48,7 @@ struct BookingSuccessView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-        
+                
                 Text("Your booking has been placed!")
                     .bold()
                     .font(.system(size: 17, design: .default))
@@ -77,7 +77,8 @@ struct BookingSuccessView: View {
                     Button(action: {
                         isPresented = true
                     }) {
-                        HStack {
+                        HStack (alignment:.center){
+                            Spacer()
                             Text("Want to add this to iCal?")
                                 .bold()
                                 .foregroundColor(Color(red: 127/255, green: 41/255, blue: 154/255))
@@ -88,8 +89,8 @@ struct BookingSuccessView: View {
                             
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(.gray)
+                            Spacer()
                         }
-                        .padding(.horizontal)
                     }
                     .background(Color(red: 250/255, green: 233/255, blue: 255/255))
                     .frame(width: 370, height: 50)
@@ -103,23 +104,32 @@ struct BookingSuccessView: View {
                         .presentationCornerRadius(25)
                 }
                 
-                Text("Check-In Time")
-                    .padding(.bottom,10)
-                    .padding(.top,10)
+                
+                Text("Booking Summary")
                     .bold(true)
+                    .padding(.top,15)
                     .font(.system(size: 15))
+                Divider()
+                    .background(.black)
+                    .padding(.bottom, 20)
                 HStack{
-                    Text("Available on")
-                        .font(.system(size: 15))
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Date")
+                        .font(.system(size: 14))
                     Spacer()
-                    Text(checkInTime + ".")
+                    Text(bookingDate)
                         .bold()
-                        .font(.system(size: 15))
-                        .multilineTextAlignment(.trailing)
-                        .fixedSize(horizontal: false, vertical: true)
+                        .font(.system(size: 14))
                     
+                }
+                HStack{
+                    Text("Check-In Time")
+                        .padding(.bottom,10)
+                        .padding(.top,10)
+                        .font(.system(size: 14))
+                    Spacer()
+                    Text("\(checkInTime)")
+                        .bold()
+                        .font(.system(size: 14))
                 }
                 HStack{
                     Image(systemName:"info.circle")
@@ -128,28 +138,13 @@ struct BookingSuccessView: View {
                         .frame(width: 15, height: 15)
                         .foregroundStyle(.red, .red)
                         .padding(.bottom,25)
-                    Text("Please note that late check-in will cause your booking to be cancelled")
+                    Text("Please note that late check-in will cause your booking to be cancelled.")
                         .foregroundStyle(.secondary)
                         .padding(.bottom, 15)
                         .font(.system(size: 13))
                         .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                Text("Booking Summary")
-                    .bold(true)
-                    .padding(.bottom,15)
-                    .font(.system(size: 15))
-                HStack{
-                    Text("Date")
-                        .font(.system(size: 14))
-                    Spacer()
-                    Text(bookingDate)
-                        .bold()
-                        .font(.system(size: 14))
-                }
-                Divider()
-                    .background(Color(UIColor(red: 0xD9/255, green: 0xD9/255, blue: 0xD9/255, alpha: 1.0)))
-                    .padding(.bottom, 32)
+                    .fixedSize(horizontal: false, vertical: true)}
+                
                 NavigationLink(destination: ContentView()) {
                     Text("Back to Home Page")
                         .font(.system(size: 15))
@@ -167,22 +162,29 @@ struct BookingSuccessView: View {
                             )
                         )
                         .cornerRadius(24)
-                        .padding(.horizontal, 12)
                         .padding(.top, 24)
                 }
+                
                 .simultaneousGesture(TapGesture().onEnded {
                     var transaction = Transaction()
                     transaction.disablesAnimations = true
                     withTransaction(transaction) {
                     }
+                
+                    
                 })
+            
+                
             }
-            .safeAreaPadding()
+            .safeAreaPadding(.bottom)
+            .padding(.horizontal,12)
+            .navigationBarBackButtonHidden(true) // Hides the back button and disables swipe back
+
         }
     }
 }
 
 
 #Preview {
-    BookingSuccessView(checkInTime: "Monday, March 25 2025 (07.55 - 08.10 AM)", bookingDate: "Monday, March 25 2025")
+    BookingSuccessView(checkInTime: "07.55 - 08.10 AM", bookingDate: "Monday, March 25 2025")
 }

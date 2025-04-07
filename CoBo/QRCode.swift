@@ -26,7 +26,7 @@ func generatePlaceholderQRCode() -> String {
     BEGIN:VALARM
     ACTION:DISPLAY
     DESCRIPTION:Follow Up for Check-In
-    TRIGGER:PT5M
+    TRIGGER:PT0M
     END:VALARM
 
     END:VEVENT
