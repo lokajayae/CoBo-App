@@ -11,19 +11,19 @@ final class DataManager {
     
     static func getUsersData() -> [User] {
         return [
-            User(name: "Evan Lokajaya", email: "lokajaya414@gmail.com"),
-            User(name: "Jesslyn Amanda Mulyawan", email: "jesslynmulyawan@gmail.com"),
-            User(name: "Emmanuel Rieno Bobba", email: "emmanuelbobba3@gmail.com"),
-            User(name: "Callista Andreane", email: "menotcallista@gmail.com"),
-            User(name: "Kelvin Alexander Bong", email: "kelvinbong3010@gmail.com"),
-            User(name: "Ammar Sufyan", email: "ammarsfyn@gmail.com"),
-            User(name: "Richard Wijaya Harianto", email: "richardharianto04@gmail.com"),
-            User(name: "Wiwi Oktriani", email: "wiwioktriani1111@gmail.com"),
-            User(name: "Sufi Arifin", email: "zv.180279@gmail.com"),
-            User(name: "Louis Octavianus", email: "luisoktt@gmail.com"),
-            User(name: "Alvin Justine", email: "faajustin04@gmail.com"),
-            User(name: "Brayent Cahyadi", email: "brayentcahyadi@gmail.com"),
-            User(name: "Georgius Kenny Gunawan", email: "ggunawan25@bsd.idserve.net")
+            User(name: "Evan Lokajaya", email: "lokajaya4141@gmail.com"),
+            User(name: "Jesslyn Amanda Mulyawan", email: "jesslynmulyawan2@gmail.com"),
+            User(name: "Emmanuel Rieno Bobba", email: "emmanuelbobba33@gmail.com"),
+            User(name: "Callista Andreane", email: "menotcallista2@gmail.com"),
+            User(name: "Kelvin Alexander Bong", email: "kelvinbong30210@gmail.com"),
+            User(name: "Ammar Sufyan", email: "ammarsfyn3@gmail.com"),
+            User(name: "Richard Wijaya Harianto", email: "richardharianto041@gmail.com"),
+            User(name: "Wiwi Oktriani", email: "wiwioktriani11131@gmail.com"),
+            User(name: "Sufi Arifin", email: "zv.1802749@gmail.com"),
+            User(name: "Louis Octavianus", email: "luisoktt32@gmail.com"),
+            User(name: "Alvin Justine", email: "faajustin0432@gmail.com"),
+            User(name: "Brayent Cahyadi", email: "brayentcahyadi324@gmail.com"),
+            User(name: "Georgius Kenny Gunawan", email: "ggunawan2523@bsd.idserve.net")
         ]
     }
     
@@ -41,26 +41,26 @@ final class DataManager {
     static func getBookingData() -> [Booking] {
         return [
             Booking(
-                name: "Lokajaya's Meeting",
-                coordinator: DataManager.getUsersData()[0],
+                name: "Core Challenge Meeting",
+                coordinator: DataManager.getUsersData().randomElement(),
                 purpose: BookingPurpose.groupDiscussion,
                 date: Date(),
                 participants: [],
-                timeslot: DataManager.getTimeslotsData()[1],
-                collabSpace: DataManager.getCollabSpacesData()[0],
+                timeslot: DataManager.getTimeslotsData().randomElement()!,
+                collabSpace: DataManager.getCollabSpacesData().randomElement()!,
                 status: BookingStatus.notCheckedIn,
                 checkInCode:"111111"
             ),
             Booking(
-                name: "Lokajaya's Meeting",
-                coordinator: DataManager.getUsersData()[0],
-                purpose: BookingPurpose.groupDiscussion,
+                name: "Personal Mentoring",
+                coordinator: DataManager.getUsersData().randomElement(),
+                purpose: BookingPurpose.personalMentoring,
                 date: Date(),
                 participants: [],
-                timeslot: DataManager.getTimeslotsData()[1],
-                collabSpace: DataManager.getCollabSpacesData()[1],
+                timeslot: DataManager.getTimeslotsData().randomElement()!,
+                collabSpace: DataManager.getCollabSpacesData().randomElement()!,
                 status: BookingStatus.notCheckedIn,
-                checkInCode:"908462"
+                checkInCode:"111111"
             )
         ]
     }

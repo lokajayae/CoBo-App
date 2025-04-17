@@ -101,27 +101,27 @@ struct CoBoApp: App {
                 
                 // Create bookings using references to the saved entities
                 let booking1 = Booking(
-                    name: "Lokajaya's Meeting",
-                    coordinator: savedUsers[0],
+                    name: "Core Challenge Discussion",
+                    coordinator: savedUsers.randomElement(),
                     purpose: BookingPurpose.groupDiscussion,
                     date: Date(),
                     participants: [],
-                    timeslot: savedTimeslots[0],
-                    collabSpace: savedSpaces[0],
+                    timeslot: savedTimeslots.randomElement()!,
+                    collabSpace: savedSpaces.randomElement()!,
                     status: BookingStatus.notCheckedIn,
-                    checkInCode: "908724"
+                    checkInCode: "111111"
                 )
                 
                 let booking2 = Booking(
-                    name: "Lokajaya's Meeting",
-                    coordinator: savedUsers[0],
-                    purpose: BookingPurpose.groupDiscussion,
+                    name: "Personal Mentoring",
+                    coordinator: savedUsers.randomElement(),
+                    purpose: BookingPurpose.personalMentoring,
                     date: Date(),
                     participants: [],
-                    timeslot: savedTimeslots[1],
-                    collabSpace: savedSpaces[1],
-                    status: BookingStatus.closed,
-                    checkInCode: "908462"
+                    timeslot: savedTimeslots.randomElement()!,
+                    collabSpace: savedSpaces.randomElement()!,
+                    status: BookingStatus.notCheckedIn,
+                    checkInCode: "222222"
                 )
                 
                 context.insert(booking1)
