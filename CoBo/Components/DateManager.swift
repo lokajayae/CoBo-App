@@ -39,7 +39,7 @@ struct DateManager: View {
         var dates: [Date] = []
         var currentDate = Date()
         
-        for _ in 0..<7 {
+        for _ in 0..<8 {
             let weekday = calendar.component(.weekday, from: currentDate)
             
             if weekday > 1 && weekday < 7 {
