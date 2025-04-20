@@ -12,6 +12,10 @@ struct BookingLogView: View {
     
     @State private var selectedDate: Date = Date()
     @State private var navigationPath = NavigationPath()
+    @State private var showAdminCodeSheet = false
+    
+    @State private var adminCodeInput = ""
+    @State private var adminCodeErrorMessage: String? = nil
     
     var bookingController = BookingController()
     
@@ -29,7 +33,18 @@ struct BookingLogView: View {
                     .frame(height: 220)
                     .ignoresSafeArea()
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("🧾").font(.system(size: 34)).fontWeight(.bold)
+                        HStack {
+                            Text("🧾").font(.system(size: 34)).fontWeight(.bold)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                            Spacer()
+                            Text(Image(systemName: "person.badge.key"))
+                                .font(.system(size: 30)).fontWeight(.bold)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .topTrailing)
+                                .onTapGesture {
+                                    showAdminCodeSheet = true
+                                }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 75)
                         Text("Booking Logs").font(.system(size: 21)).fontWeight(.bold)
                         Text("Search for reservation records here.").font(.system(size: 13))
                     }
@@ -55,7 +70,7 @@ struct BookingLogView: View {
                                 Spacer()
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
+                            
                         }else{
                             ScrollView {
                                 VStack {
@@ -81,6 +96,10 @@ struct BookingLogView: View {
             .navigationDestination(for: BookingLogDetailContext.self) { context in
                 BookingLogDetailsView(navigationPath: $navigationPath, booking: context.booking)
             }
+            .navigationDestination(for: AdminSettingsContext.self) { context in
+                AdminSettingView(navigationPath: $navigationPath)
+            }
+            
         }
         .onAppear() {
             bookingController.setupModelContext(modelContext)
@@ -89,6 +108,32 @@ struct BookingLogView: View {
         }
         .onChange(of: selectedDate) { oldValue, newValue in
             bookings = bookingController.getBookingsByDate(newValue)
+        }
+        .sheet(isPresented: $showAdminCodeSheet) {
+            AdminCodeView(
+                codeInput: $adminCodeInput,
+                errorMessage: $adminCodeErrorMessage,
+                onConfirm: validateAdminTotp
+            )
+        }
+    }
+    
+    func validateAdminTotp() {
+        let currentTime = Date().timeIntervalSince1970
+        let secretKey = "MYYHC33XJBLVE3RYKU4UG4LZGRZXK42M"
+        
+        let code = TotpUtil.generateTotp(timestamp: currentTime, secretKey: secretKey, timeStep: 30, digits: 6)
+        
+        if (code == self.adminCodeInput) {
+            adminCodeErrorMessage = nil
+            showAdminCodeSheet = false
+            
+            let adminContext = AdminSettingsContext()
+            
+            navigationPath.append(adminContext)
+        }
+        else {
+            adminCodeErrorMessage = "Wrong TOTP Code. Please try again"
         }
     }
 }
