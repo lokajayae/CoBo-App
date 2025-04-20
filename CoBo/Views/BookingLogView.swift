@@ -116,6 +116,32 @@ struct BookingLogView: View {
                 onConfirm: validateAdminTotp
             )
         }
+        .sheet(isPresented: $showAdminCodeSheet) {
+             AdminCodeView(
+                 codeInput: $adminCodeInput,
+                 errorMessage: $adminCodeErrorMessage,
+                 onConfirm: validateAdminTotp
+             )
+         }
+    }
+    
+    func validateAdminTotp() {
+        let currentTime = Date().timeIntervalSince1970
+        let secretKey = "MYYHC33XJBLVE3RYKU4UG4LZGRZXK42M"
+        
+        let code = TotpUtil.generateTotp(timestamp: currentTime, secretKey: secretKey, timeStep: 30, digits: 6)
+        
+        if (code == self.adminCodeInput) {
+            adminCodeErrorMessage = nil
+            showAdminCodeSheet = false
+            
+            let adminContext = AdminSettingsContext()
+            
+            navigationPath.append(adminContext)
+        }
+        else {
+            adminCodeErrorMessage = "Wrong TOTP Code. Please try again"
+        }
     }
     
     func validateAdminTotp() {
