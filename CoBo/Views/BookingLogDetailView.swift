@@ -33,22 +33,23 @@ struct BookingLogDetailsView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: 120)
+                    .frame(height: 140)
+                    .cornerRadius(30, antialiased: true)
+                    .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .ignoresSafeArea()
                     
                     
                     VStack(alignment: .leading, spacing: 6) {
                         Spacer()
-                        Text("📄 Booking Details")
+                        Text("🔎").font(.largeTitle)
+                        Text("Booking Details")
                             .font(.title2).bold()
                         Spacer()
-                    }                .padding(.horizontal, 16)
+                    }                .padding(.horizontal, 32)
                     
                 }.alert("Booking Canceled", isPresented: $showSuccessAlert, actions: {}) {
                     Text("Your booking has been successfully canceled.")
                 }
-
-                    
                 .padding(.bottom, 10)
                 Group {
                     InfoRow(title: "Name", value: booking.name ?? "N/A")
@@ -78,23 +79,23 @@ struct BookingLogDetailsView: View {
                     HStack(alignment: .top) {
                         Text("Participants")
                             .bold()
-                            .font(.system(size: 14))
+                            .font(.callout)
                         Spacer()
                         VStack(alignment: .trailing, spacing: 4) {
                             if booking.participants.isEmpty {
                                 Text("No participants inputted")
-                                    .font(.system(size: 13))
+                                    .font(.callout)
                                     .multilineTextAlignment(.trailing)
                             } else {
                                 ForEach(booking.participants, id: \.id) { participant in
                                     Text(participant.name)
-                                        .font(.system(size: 13))
+                                        .font(.callout)
                                         .multilineTextAlignment(.trailing)
                                 }
                             }
                         }
                     }}
-         .padding(.horizontal, 16)
+         .padding(.horizontal, 32)
                 
                 
                 Spacer()
@@ -125,7 +126,7 @@ struct BookingLogDetailsView: View {
                 showCancelSheet = true
             }) {
                 Text("Cancel Booking")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.system(.body, weight: .bold))
                     .foregroundColor(.white)
                     .padding(.vertical, 16)
                     .frame(maxWidth: .infinity)
@@ -133,7 +134,8 @@ struct BookingLogDetailsView: View {
                     .cornerRadius(24)
                     .padding(.horizontal, 12)
                     .padding(.top, 12)
-            }
+            }.padding(.horizontal, 32)
+                .padding(.bottom, 32)
         }
 
     }
@@ -191,10 +193,10 @@ struct InfoRow: View {
         HStack(alignment: .top) {
             Text(title)
                 .bold()
-                .font(.system(size: 14))
+                .font(.callout)
             Spacer()
             Text(value)
-                .font(.system(size: 13))
+                .font(.callout)
                 .multilineTextAlignment(.trailing)
                 .lineLimit(nil)
                 
@@ -220,15 +222,16 @@ struct CancelBookingSheet: View {
                     .bold()
                     .multilineTextAlignment(.center)
 
-                HStack(spacing: 12) {
-                    ForEach(0..<6, id: \.self) { index in
-                        CodeBox(index: index, code: $codeInput)
-                            .focused($focusedField, equals: index)
-                            .onChange(of: codeInput) { _ in
-                                focusedField = codeInput.count < 6 ? codeInput.count : nil
-                            }
-                    }
-                }
+//                HStack(spacing: 12) {
+//                    ForEach(0..<6, id: \.self) { index in
+//                        CodeBox(index: index, code: $codeInput)
+//                            .focused($focusedField, equals: index)
+//                            .onChange(of: codeInput) { _ in
+//                                focusedField = codeInput.count < 6 ? codeInput.count : nil
+//                            }
+//                    }
+//                }
+//                OTPFieldComponent()
 
                 if let error = errorMessage {
                     Text(error)
@@ -259,49 +262,7 @@ struct CancelBookingSheet: View {
     }
 }
 
-// MARK: - CodeBox
-struct CodeBox: View {
-    let index: Int
-    @Binding var code: String
 
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .frame(width: 45, height: 60)
-                .cornerRadius(8)
-                .foregroundColor(Color.gray.opacity(0.2))
-
-            TextField("", text: Binding(
-                get: {
-                    if index < code.count {
-                        let charIndex = code.index(code.startIndex, offsetBy: index)
-                        return String(code[charIndex])
-                    } else {
-                        return ""
-                    }
-                },
-                set: { newValue in
-                    guard newValue.count <= 1, newValue.last?.isWholeNumber ?? true else { return }
-                    var codeArray = Array(code)
-                    if index < codeArray.count {
-                        if newValue.isEmpty {
-                            codeArray.remove(at: index)
-                        } else {
-                            codeArray[index] = newValue.last!
-                        }
-                    } else if index == codeArray.count, !newValue.isEmpty {
-                        codeArray.append(newValue.last!)
-                    }
-                    code = String(codeArray.prefix(6))
-                }
-            ))
-            .frame(width: 45, height: 60)
-            .font(.title)
-            .multilineTextAlignment(.center)
-            .keyboardType(.numberPad)
-        }
-    }
-}
 
 #Preview {
     let navigationPath = NavigationPath()

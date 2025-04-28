@@ -13,6 +13,8 @@ struct BookingFormView: View {
     @Binding var navigationPath: NavigationPath
     @State private var showConflictAlert: Bool = false
     @State private var conflictMessage: String = ""
+    @FocusState private var isMeetingNameFocused: Bool
+
     
     let bookingDate: Date
     let timeslot: Timeslot
@@ -47,28 +49,28 @@ struct BookingFormView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Date").font(.system(size: 14, weight: .medium))
+                    Text("Date").font(.system(.callout, weight: .medium))
                     Spacer()
-                    Text(formattedDate).font(.system(size:13))
+                    Text(formattedDate).font(.system(.callout))
                 }
                 .padding(.vertical)
                 Divider()
                 HStack {
-                    Text("Time").font(.system(size: 14, weight: .medium))
+                    Text("Time").font(.system(.callout, weight: .medium))
                     Spacer()
-                    Text(timeslot.name).font(.system(size:13))
+                    Text(timeslot.name).font(.system(.callout))
                 }
                 .padding(.vertical)
                 Divider()
                 HStack {
-                    Text("Space").font(.system(size: 14, weight: .medium))
+                    Text("Space").font(.system(.callout, weight: .medium))
                     Spacer()
-                    Text(collabSpace.name).font(.system(size:13))
+                    Text(collabSpace.name).font(.system(.callout))
                 }
                 .padding(.vertical)
                 Divider()
                 HStack{
-                    Text("Coordinator").font(.system(size: 14, weight: .medium))
+                    Text("Coordinator").font(.system(.callout, weight: .medium))
                     Text("*").foregroundStyle(Color.red)
                 }
                 .padding(.top, 25)
@@ -81,7 +83,7 @@ struct BookingFormView: View {
                             let newBooking = Booking(
                                 name: meetingName,
                                 coordinator: coordinator,
-                                purpose: bookingPurpose ?? .others, // default to .other if nil
+                                purpose: bookingPurpose ?? .others,
                                 date: bookingDate,
                                 participants: selectedItems,
                                 timeslot: timeslot,
@@ -109,28 +111,29 @@ struct BookingFormView: View {
                 
                 
                 HStack{
-                    Text("Meeting's Name").font(.system(size: 14, weight: .medium))
+                    Text("Meeting's Name").font(.system(.callout, weight: .medium))
                     Text("*").foregroundStyle(Color.red)
                 }
                 .padding(.top, 25)
                 
                 TextField("Challenge Group Meeting", text: $meetingName)
-                    .font(.system(size:13))
+                    .font(.system(.callout))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .focused($isMeetingNameFocused)
                 
                 HStack{
-                    Text("Purpose").font(.system(size: 14, weight: .medium))
+                    Text("Purpose").font(.system(.callout, weight: .medium))
                     Text("*").foregroundStyle(Color.red)
                 }
                 .padding(.top, 25)
                 BookingPurposeDropdownComponent(selectedItem: $bookingPurpose)
                 
-                Text("Add Participant(s)").font(.system(size: 14, weight: .medium))
+                Text("Add Participant(s)").font(.system(.callout, weight: .medium))
                     .padding(.top, 25)
                 Text("By adding participants, you automatically include them as invitees in iCal event, available after booking.")
                     .padding(.top, 4)
                     .padding(.bottom,4)
-                    .font(.system(size: 13))
+                    .font(.system(.footnote))
                     .foregroundStyle(Color.gray)
                 MultipleSelectionDropdownComponent(selectedData: $selectedItems, allData: users)
                     .padding(.bottom)
@@ -140,7 +143,7 @@ struct BookingFormView: View {
                     book()
                 } label: {
                     Text("Book")
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(.body, weight: .medium))
                         .foregroundColor(.white)
                         .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
@@ -157,6 +160,7 @@ struct BookingFormView: View {
             .padding(.horizontal)
         }
         .safeAreaPadding()
+        .scrollDismissesKeyboard(.immediately)
         .alert(isPresented: $showAlert) {
             let emptyFields = emptyFields.joined(separator: ", ")
             let message = "Please fill in the following fields: \(emptyFields)"

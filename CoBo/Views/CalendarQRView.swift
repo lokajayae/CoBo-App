@@ -31,7 +31,7 @@ Scan this QR code to effortlessly add the
 event to your iCal and receive timely reminders.
 """)
             .multilineTextAlignment(.center)
-            .font(.system(size: 13))
+            .font(.callout)
             .padding()
             if let qrImage = generateQRCode(from: qrCodeText) {
                 qrImage

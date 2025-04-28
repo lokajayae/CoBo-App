@@ -13,10 +13,10 @@ struct BookingStatusComponent: View {
     var label: String {
         get {
             return switch status {
-                case .checkedIn: "Checked In ✅"
-                case .notCheckedIn: "Awaiting for check-in ⏳"
-                case .closed: "Closed ❌"
-                case .canceled: "Canceled ❌"
+                case .checkedIn: "Checked-in"
+                case .notCheckedIn: "Awaiting for check-in"
+                case .closed: "Closed"
+                case .canceled: "Canceled"
             }
         }
     }
@@ -34,7 +34,7 @@ struct BookingStatusComponent: View {
     
     var body: some View {
         Text(label)
-            .font(.system(size: 11))
+            .font(.footnote)
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
             .background(color)

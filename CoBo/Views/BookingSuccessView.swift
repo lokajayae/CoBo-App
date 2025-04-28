@@ -77,21 +77,21 @@ struct BookingSuccessView: View {
                     VStack(alignment: .leading){
                         Text("Your booking has been placed!")
                             .bold()
-                            .font(.system(size: 17))
+                            .font(.title3)
                         
                         Text("Now save this code.")
                             .bold()
                             .padding(.bottom, 10)
-                            .font(.system(size: 17))
+                            .font(.title3)
                         
                         Text("This code won't be shown again. ")
-                            .font(.system(size: 13))
+                            .font(.callout)
                             .foregroundColor(Color(red: 127 / 255, green: 41 / 255, blue: 154 / 255))
                             .italic()
                             .bold()
                         +
                         Text("Save this 6-digit code for future check-in to verify your attendance.")
-                            .font(.system(size: 13))
+                            .font(.callout)
                             .foregroundColor(.primary)
                     }.padding(.horizontal, 16)
                     
@@ -103,10 +103,10 @@ struct BookingSuccessView: View {
                             isPresented = true
                         }) {
                             HStack {
-                                Text("Want to add this to iCal?")
+                                Text("Want to add this meeting to iCal?")
                                     .bold()
                                     .foregroundColor(Color("Dark-Purple"))
-                                    .font(.system(size: 13))
+                                    .font(.body)
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(Color("Dark-Purple"))
@@ -116,11 +116,12 @@ struct BookingSuccessView: View {
                             .padding(.horizontal, 18)
                             
                         }
-                        .background(Color("Light-Purple").opacity(0.4))
+                        .background(Color("Light-Purple").opacity(0.2))
                         .cornerRadius(10)
                         .padding(.horizontal, 16)
                         
                     }
+                    .padding(.top, 12)
                     .sheet(isPresented: $isPresented) {
                         CalendarQRView(booking: booking)
                             .presentationDetents([.height(400)])
@@ -136,7 +137,7 @@ struct BookingSuccessView: View {
                             .padding(.top,10)
                         Text("Please note that late check-in will cause your booking to be cancelled.")
                             .foregroundStyle(.black)
-                            .font(.system(size: 13))
+                            .font(.callout)
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.top,10)
@@ -145,9 +146,9 @@ struct BookingSuccessView: View {
                     
                     Text("Booking Summary")
                         .bold()
-                        .padding(.top, 24)
+                        .padding(.top, 36)
                         .padding(.bottom,10)
-                        .font(.system(size: 15))
+                        .font(.body)
                         .padding(.horizontal, 16)
                     
                     Divider()
@@ -168,7 +169,7 @@ struct BookingSuccessView: View {
                 Text("Back to Home Page")
                     .frame(width: 340, height: 60)
                     .foregroundColor(.white)
-                    .font(.system(size: 18))
+                    .font(.body)
                     .background(
                         Color("Purple")
                     )

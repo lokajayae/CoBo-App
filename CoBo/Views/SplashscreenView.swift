@@ -27,12 +27,12 @@ struct SplashscreenView: View {
                     .opacity(opacity)
                     .scaleEffect(scale)
                     .onAppear {
-                        withAnimation(.easeIn(duration: 1.5)) {
+                        withAnimation(.easeIn(duration: 1)) {
                             opacity = 1.0
                         }
                       
 
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             isActive = true
                         }
                     }

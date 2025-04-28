@@ -77,12 +77,12 @@ struct BookingSuccessAutoCIView : View{
                     VStack(alignment: .leading){
                         Text("Your booking has been placed!")
                             .bold()
-                            .font(.system(size: 17))
+                            .font(.title3)
                         
                         Text("You can proceed to use the space now.")
                             .bold()
                             .padding(.bottom, 10)
-                            .font(.system(size: 17))
+                            .font(.title3)
                         
                     }.padding(.horizontal, 16)
 
@@ -90,7 +90,7 @@ struct BookingSuccessAutoCIView : View{
                         .bold()
                         .padding(.top, 16)
                         .padding(.bottom,10)
-                        .font(.system(size: 15))
+                        .font(.body)
                         .padding(.horizontal, 16)
                     
                     Divider()
@@ -111,7 +111,7 @@ struct BookingSuccessAutoCIView : View{
                 Text("Back to Home Page")
                     .frame(width: 340, height: 60)
                     .foregroundColor(.white)
-                    .font(.system(size: 18))
+                    .font(.body)
                     .background(
                         Color("Purple")
                     )

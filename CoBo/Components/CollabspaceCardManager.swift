@@ -10,6 +10,7 @@ struct CollabspaceCardManager : View{
     
     @Binding var navigationPath: NavigationPath
     @Binding var selectedDate: Date
+    var geometrySize:CGFloat
     var collabSpaceController = CollabSpaceController()
     @State var collabSpaces: [CollabSpace] = []
     
@@ -19,10 +20,8 @@ struct CollabspaceCardManager : View{
             LazyVStack(spacing: 32){
                 ForEach(collabSpaces, id: \.self){
                     collabspace in
-                    CollabspaceCard(navigationPath: $navigationPath, collabSpace: .constant(collabspace), selectedDate: .constant(selectedDate))
+                    CollabspaceCard(navigationPath: $navigationPath, collabSpace: .constant(collabspace), selectedDate: .constant(selectedDate), geometrySize: geometrySize)
                 }
-                
-                
                 
             }.padding(12)
             
@@ -34,7 +33,7 @@ struct CollabspaceCardManager : View{
     }
 }
 
-#Preview {
-    let navigationPath = NavigationPath()
-    CollabspaceCardManager(navigationPath: .constant(navigationPath), selectedDate: .constant(Date()))
-}
+//#Preview {
+//    let navigationPath = NavigationPath()
+//    CollabspaceCardManager(navigationPath: .constant(navigationPath), selectedDate: .constant(Date()))
+//}

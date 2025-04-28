@@ -13,43 +13,44 @@ struct BookingLogCardComponent: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(booking.name ?? "")
-                .font(.system(size: 14))
+                .font(.callout)
                 .bold()
                 .padding(.bottom, 8)
             Divider()
             
             HStack {
                 Text("Place:")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
                 Text(booking.collabSpace.name)
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
                     .bold()
             }
             
             HStack {
                 Text("Coordinator:")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
                 Text(booking.coordinator?.name ?? "")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
             }
             
             HStack {
                 Text("Purpose:")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
                 Text(booking.purpose?.rawValue ?? "")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
             }
             
             HStack {
                 Text("Timeslot:")
-                    .font(.system(size: 12))
+                    .font(.system(.footnote))
             }
             
-            HStack {
+            HStack(alignment: .top) {
                 Text(booking.timeslot.name)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(.footnote, weight: .medium))
+                    .padding(.horizontal, 12)
                     .foregroundColor(Color("Dark-Purple"))
-                    .frame(width:93, height: 36)
+                    .frame(height: 36)
                     .background(Color.white)
                     .cornerRadius(12)
                     .overlay(

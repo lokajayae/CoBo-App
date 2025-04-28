@@ -54,7 +54,7 @@ struct MultipleSelectionDropdownComponent<T:DropdownProtocol>: View {
             } label: {
                 Text("+ Add Participant")
             }
-            .font(.system (size:12, weight: .medium))
+            .font(.system (.callout, weight: .medium))
             .foregroundColor(.white)
                 .padding(.vertical, 10)
                 .padding(.horizontal, 16)

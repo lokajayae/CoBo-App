@@ -27,119 +27,122 @@ struct BookingConfirmationView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Image("booking-confirmation-icon")
-                    .resizable()
-                    .frame(width: 66.0, height: 66.0)
-                    .padding(.bottom, 20)
-                Text("Review Your Booking")
-                    .font(.system(size: 21))
-                    .bold()
-                    .padding(.bottom, 6)
-                Text("Please review your booking before confirming")
-                    .font(.system(size: 13))
-                    .padding(.bottom, 25)
-                HStack {
-                    Text("Date")
-                        .font(.system(size: 14))
-                    Spacer()
-                    Text(formattedBookingDate).font(.system(size: 13, weight: .medium))
-                }
-                .padding(.top, 15)
-                .padding(.bottom, 15)
-                Divider()
-                HStack {
-                    Text("Time").font(.system(size: 14))
-                    Spacer()
-                    Text(booking?.timeslot.name ?? "").font(.system(size: 13, weight: .medium))
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                Divider()
-                HStack {
-                    Text("Space").font(.system(size: 14))
-                    Spacer()
-                    Text(booking?.collabSpace.name ?? "").font(.system(size: 13, weight: .medium))
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                Divider()
-                HStack {
-                    Text("Coordinator").font(.system(size: 14))
-                    Spacer()
-                    Text(booking?.coordinator?.name ?? "").font(.system(size: 13, weight: .medium))
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                Divider()
-                HStack {
-                    Text("Meeting Name").font(.system(size: 14))
-                    Spacer()
-                    Text(booking?.name ?? "").font(.system(size: 13, weight: .medium)).frame(maxWidth: .infinity, alignment: .trailing)                }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                Divider()
-                HStack {
-                    Text("Purpose").font(.system(size: 14))
-                    Spacer()
-                    Text(booking?.purpose?.rawValue ?? "").font(.system(size: 13, weight: .medium))
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                Divider()
-                HStack(alignment: .top) {
-                    Text("Participants").font(.system(size: 14))
-                    Spacer()
-                    VStack(alignment: .trailing){
-                        if booking?.participants.count ?? 0 == 0 {
-                            Text("No participants inputted").font(.system(size: 13)).foregroundColor(.gray)
-                        }else{
-                            ForEach(booking?.participants ?? []) { participant in
-                                Text(participant.name).font(.system(size: 13, weight: .medium))
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Image("booking-confirmation-icon")
+                        .resizable()
+                        .frame(width: 66.0, height: 66.0)
+                        .padding(.bottom, 12)
+                    Text("Review Your Booking")
+                        .font(.title)
+                        .bold()
+                        .padding(.bottom, 4)
+                    Text("Please review your booking before confirming")
+                        .font(.system(size: geometry.size.width*0.035))
+                        .padding(.bottom, 24)
+                    HStack {
+                        Text("Date")
+                            .font(.system(.callout))
+                        Spacer()
+                        Text(formattedBookingDate).font(.system(.callout, weight: .medium))
+                    }
+                    .padding(.top, 15)
+                    .padding(.bottom, 15)
+                    Divider()
+                    HStack {
+                        Text("Meeting Time").font(.system(.callout))
+                        Spacer()
+                        Text(booking?.timeslot.name ?? "").font(.system(.callout, weight: .medium))
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    Divider()
+                    HStack {
+                        Text("Space").font(.system(.callout))
+                        Spacer()
+                        Text(booking?.collabSpace.name ?? "").font(.system(.callout, weight: .medium))
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    Divider()
+                    HStack {
+                        Text("Coordinator").font(.system(.callout))
+                        Spacer()
+                        Text(booking?.coordinator?.name ?? "").font(.system(.callout, weight: .medium))
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    Divider()
+                    HStack {
+                        Text("Meeting Name").font(.system(.callout))
+                        Spacer()
+                        Text(booking?.name ?? "").font(.system(.callout, weight: .medium)).frame(maxWidth: .infinity, alignment: .trailing)                }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    Divider()
+                    HStack {
+                        Text("Purpose").font(.system(.callout))
+                        Spacer()
+                        Text(booking?.purpose?.rawValue ?? "").font(.system(.callout, weight: .medium))
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    Divider()
+                    HStack(alignment: .top) {
+                        Text("Participants").font(.system(.callout))
+                        Spacer()
+                        VStack(alignment: .trailing){
+                            if booking?.participants.count ?? 0 == 0 {
+                                Text("No participants inputted").font(.system(.callout)).foregroundColor(.gray)
+                            }else{
+                                ForEach(booking?.participants ?? []) { participant in
+                                    Text(participant.name).font(.system(.callout, weight: .medium))
+                                }
                             }
+                            
                         }
-                        
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+                    
+                    ZStack {
+                        Button(action: {
+                            confirmBooking()
+                        }) {
+                            Text("Confirm")
+                                .font(.body)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 16)
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    Color("Purple")
+                                )
+                                .cornerRadius(24)
+                                .padding(.horizontal, 12)
+                                .padding(.top, 24)
+                        }
+                        .padding(.bottom, 40)
                     }
                 }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
-                
-                ZStack {
-                    Button(action: {
-                        confirmBooking()
-                    }) {
-                        Text("Confirm")
-                            .font(.system(size: 15))
-                            .foregroundColor(.white)
-                            .padding(.vertical, 16)
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                Color("Purple")
-                            )
-                            .cornerRadius(24)
-                            .padding(.horizontal, 12)
-                            .padding(.top, 24)
-                    }
-                    .padding(.bottom, 40)
+            }
+            .safeAreaPadding()
+            .padding(16)
+            .navigationTitle("Booking Confirmation")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: BookingSuccessContext.self) { context in
+                if context.isAutoCheckIn {
+                    BookingSuccessAutoCIView(navigationPath: $navigationPath, booking: context.booking)
+                }
+                else {
+                    BookingSuccessView(navigationPath: $navigationPath, booking: context.booking)
                 }
             }
-        }
-        .safeAreaPadding()
-        .padding(16)
-        .navigationTitle("Booking Confirmation")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: BookingSuccessContext.self) { context in
-            if context.isAutoCheckIn {
-                BookingSuccessAutoCIView(navigationPath: $navigationPath, booking: context.booking)
-            }
-            else {
-                BookingSuccessView(navigationPath: $navigationPath, booking: context.booking)
+            .onAppear() {
+                bookingController.setupModelContext(modelContext)
             }
         }
-        .onAppear() {
-            bookingController.setupModelContext(modelContext)
-        }
+        
     }
     
     func confirmBooking() {

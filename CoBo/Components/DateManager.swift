@@ -27,7 +27,8 @@ struct DateManager: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-            }
+            }.padding(.top,4)
+                .padding(.bottom, 4)
         }
     }
     func isSameDay(date1: Date, date2: Date) -> Bool {

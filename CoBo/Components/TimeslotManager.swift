@@ -12,19 +12,20 @@ struct TimeslotManager : View{
     @Binding var navigationPath: NavigationPath
     @Binding var collabSpace: CollabSpace?
     @Binding var selectedDate: Date?
+    var geometrySize: CGFloat
     
     var timeslotController = TimeslotController()
     @State var timeslots: [Timeslot] = []
     
     var body: some View{
         let availableTimeslots = getAvailableTimeslots()
-        let columns = [GridItem(.flexible(), spacing: 2),
-                       GridItem(.flexible(), spacing: 2),
-                       GridItem(.flexible(), spacing: 2)]
-        LazyVGrid(columns: columns, spacing: 12) {
+        let columns = [GridItem(.flexible(), spacing: geometrySize*0.02),
+                       GridItem(.flexible(), spacing: geometrySize*0.02),
+                       GridItem(.flexible(), spacing: geometrySize*0.02)]
+        LazyVGrid(columns: columns, spacing: geometrySize*0.035) {
             ForEach(availableTimeslots.prefix(6), id: \.self) { timeslot in
                 let isBooked = getTimeslotStatus(timeslot: timeslot)
-                TimeslotComponent(navigationPath: $navigationPath, timeslot: .constant(timeslot), isBooked: .constant(isBooked), selectedDate: selectedDate!, collabSpace: .constant(collabSpace!))
+                TimeslotComponent(navigationPath: $navigationPath, timeslot: .constant(timeslot), isBooked: .constant(isBooked), geometrySize: geometrySize, selectedDate: selectedDate!, collabSpace: .constant(collabSpace!))
             }
         }
         .onAppear() {

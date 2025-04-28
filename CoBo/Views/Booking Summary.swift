@@ -25,11 +25,23 @@ struct Booking_Summary: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Date")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text(formattedBookingDate)
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
+            }
+            
+            Divider()
+                .padding(.top, 10)
+                .padding(.bottom, 10)
+            HStack {
+                Text("Meeting Time")
+                    .font(.system(.callout))
+                Spacer()
+                Text("\(booking.timeslot.doubleToTime(booking.timeslot.startHour))- \(booking.timeslot.doubleToTime(booking.timeslot.endHour))")
+                    .bold()
+                    .font(.system(.callout))
             }
             
             Divider()
@@ -37,11 +49,11 @@ struct Booking_Summary: View {
                 .padding(.bottom, 10)
             HStack {
                 Text("Check-In Time")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text("\(booking.timeslot.startCheckIn) - \(booking.timeslot.endCheckIn)")
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
             }
             
             Divider()
@@ -49,11 +61,11 @@ struct Booking_Summary: View {
                 .padding(.bottom, 10)
             HStack {
                 Text("Space")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text(booking.collabSpace.name)
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
             }
             
             Divider()
@@ -61,11 +73,11 @@ struct Booking_Summary: View {
                 .padding(.bottom, 10)
             HStack {
                 Text("Coordinator")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text(booking.coordinator?.name ?? "N/A")
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
             }
             
             Divider()
@@ -73,36 +85,36 @@ struct Booking_Summary: View {
                 .padding(.bottom, 10)
             HStack {
                 Text("Meeting Name")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text(booking.name ?? "Untitled")
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
             }
             Divider()
                 .padding(.top, 10)
                 .padding(.bottom, 10)
             HStack {
                 Text("Purpose")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 Text(booking.purpose?.rawValue ?? "")
                     .bold()
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
             }
             Divider()
                 .padding(.top, 10)
                 .padding(.bottom, 10)
             HStack {
                 Text("Participants")
-                    .font(.system(size: 14))
+                    .font(.system(.callout))
                 Spacer()
                 if(booking.participants.count == 0) {
-                    Text("No participants inputted").font(.system(size: 13)).foregroundColor(.gray)
+                    Text("No participants inputted").font(.callout).foregroundColor(.gray)
                 }else{
                     VStack(alignment: .trailing){
                         ForEach(booking.participants) { participant in
-                            Text(participant.name).font(.system(size: 13, weight: .medium))
+                            Text(participant.name).font(.system(.callout, weight: .medium))
                         }
                         
                     }
